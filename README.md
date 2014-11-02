@@ -1,4 +1,6 @@
-challenges
+Challenges
 ==========
 
-saving my code for programming challenges
+Saving my code for programming challenges.
+Includes:
+projecteuler.net
