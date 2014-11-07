@@ -4,7 +4,7 @@
 using namespace std;
 
 #define PRIMELIM 1000000
-#define DISTINCT_TARGET 3
+#define DISTINCT_TARGET 4
 set<int> composites[PRIMELIM];
 
 void build_composites() 
@@ -24,41 +24,27 @@ void build_composites()
 int main()
 {
 	build_composites();
-	int i=4;
+	int i=1+DISTINCT_TARGET;
 	while (i<PRIMELIM)
 	{
-		if(composites[i].size()==DISTINCT_TARGET&&composites[i-1].size()==DISTINCT_TARGET&&composites[i-2].size()==DISTINCT_TARGET) 
+		bool bDistinctFactors=true;
+		for(int j=0;j<DISTINCT_TARGET;j++) 
 		{
-			set<int> unite;
-			for(auto& prime : composites[i]) {
-				unite.insert(prime);
-			}
-			for(auto& prime : composites[i-1]) {
-				unite.insert(prime);
-			}
-			for(auto& prime : composites[i-2]) {
-				unite.insert(prime);
-			}
-			if(unite.size()==DISTINCT_TARGET*3) 
-			{
-				cout<<i-2<<":";
-				for(auto& prime : composites[i-2]) {
-					cout<<prime<<" ";
-				}
-				cout<<endl;
-				cout<<i-1<<":";
-				for(auto& prime : composites[i-1]) {
-					cout<<prime<<" ";
-				}
-				cout<<endl;
-				cout<<i<<":";
-				for(auto& prime : composites[i]) {
-					cout<<prime<<" ";
-				}
-				cout<<endl;
-				cout <<i-2<<endl;
+			if(composites[i-j].size()!=DISTINCT_TARGET) {
+				bDistinctFactors=false;
 				break;
 			}
+		}
+		if(bDistinctFactors) {
+			for(int  j=0;j<DISTINCT_TARGET;j++) {
+				cout<<i-j<<" : ";
+				for(auto& prime : composites[i-j]) {
+					cout<<prime<<" ";
+				}
+				cout<<endl;				
+			}
+			cout <<i+1-DISTINCT_TARGET<<endl;
+			break;
 		}
 		i++;
 	}
